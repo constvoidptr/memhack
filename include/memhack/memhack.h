@@ -9,5 +9,6 @@ enum mh_error mh_process_attach(struct mh_process **process, const char *target_
 enum mh_error mh_process_detach(struct mh_process *process);
 
 enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, unsigned int size);
+enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, unsigned int size);
 
 #endif
