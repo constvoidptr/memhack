@@ -77,3 +77,16 @@ enum mh_error mh_process_detach(struct mh_process *process)
 	free(process);
 	return MH_SUCCESS;
 }
+
+enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, unsigned int size)
+{
+	if (!process || !src || !dst || !size)
+		return MH_ERROR_INVALID_PARAMETER;
+
+	SIZE_T num_bytes_read;
+
+	if (!ReadProcessMemory(process->handle, src, dst, size, &num_bytes_read) || size != num_bytes_read)
+		return MH_ERROR_GENERIC;
+
+	return MH_SUCCESS;
+}
