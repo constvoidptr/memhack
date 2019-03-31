@@ -1,0 +1,8 @@
+# Binary directory
+bin/
+
+# Build directory
+build/
+
+# Visual Studio 2015 cache/options directory
+project/.vs/
