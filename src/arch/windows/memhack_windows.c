@@ -42,7 +42,7 @@ enum mh_error mh_process_attach(struct mh_process **process, const char *target_
 			tmp_process->pid = entry.th32ProcessID;
 	}
 
-	if (CloseHandle(snapshot) == FALSE)
+	if (!CloseHandle(snapshot))
 	{
 		free(tmp_process);
 		return MH_ERROR_GENERIC;
@@ -71,7 +71,7 @@ enum mh_error mh_process_detach(struct mh_process *process)
 	if (!process)
 		return MH_ERROR_INVALID_PARAMETER;
 
-	if (CloseHandle(process->handle) == FALSE)
+	if (!CloseHandle(process->handle))
 		return MH_ERROR_GENERIC;
 
 	free(process);

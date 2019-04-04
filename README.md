@@ -5,8 +5,8 @@ Memhack is a **easy to use** memory hacking library with a multi-plattform desig
 Simple example without error checking.
 ```C
 // Variable that will hold the score, opaque pointer to the mh_process struct
-int score;
-struct mh_process *process;
+int score = 0;
+struct mh_process *process = NULL;
 
 // Attach to the target process, sets the mh_process pointer
 mh_process_attach(&process, "example.exe");
