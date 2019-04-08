@@ -1,5 +1,8 @@
-#include <memhack/error.h>
+/*
+ * Implementation of all error related functions.
+ */
 
+#include <memhack/error.h>
 
 const char * mh_resolve_error(enum mh_error error)
 {

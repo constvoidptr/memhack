@@ -24,10 +24,17 @@ mh_process_detach(process);
 
 * Easy to use, consistent library function calls
 * Designed with multi-plattform support in mind
+* Static and dynamic library available
+* Library is written in C and is therefor compatible with every language that
+  provides C bindings
 * Read from process memory
 * Write to process memory
 
 With a lot more to come...
+
+## Usage
+
+Code examples will follow...
 
 ## Installation
 
@@ -41,4 +48,5 @@ Open the Visual Studio Solution under `project/memhack.sln`
 
 ## License
 
-Memhack is published under the Zlib license. See the full license [here](https://github.com/constvoidptr/memhack/blob/master/LICENSE).
+Memhack is published under the Zlib license. See the full license
+[here](https://github.com/constvoidptr/memhack/blob/master/LICENSE).

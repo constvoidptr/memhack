@@ -1,10 +1,13 @@
+/*
+ * Implementation of all windows specific API functions.
+ */
+
 #include <memhack/memhack.h>
 
 #include <stdlib.h>
 #include <string.h>
 #include <Windows.h>
 #include <TlHelp32.h>
-
 
 struct mh_process {
 	DWORD pid;
