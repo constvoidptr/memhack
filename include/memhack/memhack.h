@@ -1,8 +1,8 @@
 /*
  * This file defines all library function calls. It is written in a
  * system-agnostic way, so there are no system specific types except inside
- * macros. Furthermore, all functions return an enum mh_error to provide a
- * consistant API.
+ * macros guards. Furthermore, all functions return an enum mh_error to provide
+ * a consistant API.
  */
 
 #ifndef MH_MEMHACK_H
@@ -11,19 +11,29 @@
 #include "error.h"
 
 /*
- * Some systems need an extra extern specifier. Build Memhack with BUILD_MH
- * defined to export function calls to dynamic link libraries.
+ * Export/import function calls from/to dynamic link libraries based on whether
+ * library ist build statically or dynamically is defined. MH_BUILD_STATIC for
+ * static linkage, MH_BUILD_DYNAMIC for dynamic linkage. Omit both if you are
+ * not building the library.
  */
-#ifndef DECLSPEC
-#	ifdef _WIN32
-#		ifdef BUILD_MH
+#if !defined(DECLSPEC)
+
+#if defined(MH_BUILD_STATIC) && defined(MH_BUILD_DYNAMIC)
+#	error "Cannot build for static and dynamic linkage at the same time"
+#endif
+
+#	if defined(_WIN32)
+#		if defined(MH_BUILD_STATIC)
+#			define DECLSPEC
+#		elif defined(MH_BUILD_DYNAMIC)
 #			define DECLSPEC __declspec(dllexport)
 #		else
 #			define DECLSPEC __declspec(dllimport)
 #		endif
 #	else
-#		error "Unsupported system!"
+#		define DECLSPEC
 #	endif
+
 #endif
 
 // Opaque struct that abstracts the system specific implementation
