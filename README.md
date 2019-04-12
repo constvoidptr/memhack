@@ -9,7 +9,7 @@ int score = 0;
 struct mh_process *process = NULL;
 
 // Attach to the target process, sets the mh_process pointer
-mh_process_attach(&process, "example.exe");
+mh_process_attach_by_name(&process, "example.exe");
 
 // Read out the current score, add 100 and write the new value back into process memory
 mh_memory_read(process, (void *) 0x0618C0DC, &score, sizeof (score));

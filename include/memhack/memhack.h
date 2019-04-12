@@ -22,17 +22,17 @@
 #	error "Cannot build for static and dynamic linkage at the same time"
 #endif
 
-#	if defined(_WIN32)
-#		if defined(MH_BUILD_STATIC)
-#			define DECLSPEC
-#		elif defined(MH_BUILD_DYNAMIC)
-#			define DECLSPEC __declspec(dllexport)
-#		else
-#			define DECLSPEC __declspec(dllimport)
-#		endif
-#	else
+#if defined(_WIN32)
+#	if defined(MH_BUILD_STATIC)
 #		define DECLSPEC
+#	elif defined(MH_BUILD_DYNAMIC)
+#		define DECLSPEC __declspec(dllexport)
+#	else
+#		define DECLSPEC __declspec(dllimport)
 #	endif
+#else
+#	define DECLSPEC
+#endif
 
 #endif
 
@@ -40,15 +40,26 @@
 struct mh_process;
 
 /*
- * mh_process_attach - Attach to your target process. This must be done before
- * any other API call using mh_process.
+ * mh_process_attach_by_pid - Attach to your target process given the process
+ * id. Attaching to the process is required before using any other API call.
  *
- * @process:     Double pointer to the mh_process struct
- * @target_name: Name of the process
+ * @process: Double pointer to the mh_process struct
+ * @pid:     Process id of the target process
  *
- * Returns:      Enum of type mh_error
+ * Returns:  Enum of type mh_error
  */
-DECLSPEC enum mh_error mh_process_attach(struct mh_process **process, const char *target_name);
+DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, const int pid);
+
+/*
+ * mh_process_attach_by_name - Attach to your target process given the process
+ * name. Attaching to the process is required before using any other API call.
+ *
+ * @process: Double pointer to the mh_process struct
+ * @name:    Name of the target process
+ *
+ * Returns:  Enum of type mh_error
+ */
+DECLSPEC enum mh_error mh_process_attach_by_name(struct mh_process **process, const char *name);
 
 /*
  * mh_process_detach - Detaches from your target process and frees memory. Every

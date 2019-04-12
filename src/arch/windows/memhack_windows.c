@@ -14,51 +14,16 @@ struct mh_process {
 	HANDLE handle;
 };
 
-enum mh_error mh_process_attach(struct mh_process **process, const char *target_name)
+enum mh_error mh_process_attach_by_pid(struct mh_process **process, const int pid)
 {
-	if (!target_name)
-		return MH_ERROR_INVALID_PARAMETER;
-
-	struct mh_process *tmp_process = malloc(sizeof(*tmp_process));
+	struct mh_process *tmp_process = malloc(sizeof (*tmp_process));
 	if (!tmp_process)
 		return MH_ERROR_MEMORY_ALLOCATION;
-	memset(tmp_process, 0, sizeof(*tmp_process));
+	memset(tmp_process, 0, sizeof (*tmp_process));
 
-	HANDLE snapshot;
-	PROCESSENTRY32 entry;
+	tmp_process->pid = pid;
+	tmp_process->handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
 
-	// Take a snapshot of all running processes
-	snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (snapshot == INVALID_HANDLE_VALUE)
-	{
-		free(tmp_process);
-		return MH_ERROR_GENERIC;
-	}
-
-	// Set entry size before use, required by Microsoft
-	entry.dwSize = sizeof(entry);
-
-	// Step over processes and set pid, if found
-	while (Process32Next(snapshot, &entry) && !tmp_process->pid)
-	{
-		if (strcmp(entry.szExeFile, target_name) == 0)
-			tmp_process->pid = entry.th32ProcessID;
-	}
-
-	if (!CloseHandle(snapshot))
-	{
-		free(tmp_process);
-		return MH_ERROR_GENERIC;
-	}
-
-	if (!tmp_process->pid)
-	{
-		free(tmp_process);
-		return MH_ERROR_PROCESS_NOT_FOUND;
-	}
-
-	// Open process
-	tmp_process->handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, tmp_process->pid);
 	if (tmp_process->handle == INVALID_HANDLE_VALUE)
 	{
 		free(tmp_process);
@@ -67,6 +32,39 @@ enum mh_error mh_process_attach(struct mh_process **process, const char *target_
 
 	*process = tmp_process;
 	return MH_SUCCESS;
+}
+
+enum mh_error mh_process_attach_by_name(struct mh_process **process, const char *name)
+{
+	if (!name)
+		return MH_ERROR_INVALID_PARAMETER;
+
+	DWORD pid = 0;
+	HANDLE snapshot;
+	PROCESSENTRY32 entry;
+
+	// Take a snapshot of all running processes
+	snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (snapshot == INVALID_HANDLE_VALUE)
+		return MH_ERROR_GENERIC;
+
+	// Set entry size before use, required by Microsoft
+	entry.dwSize = sizeof(entry);
+
+	// Step over processes and set pid, if found
+	while (Process32Next(snapshot, &entry) && !pid)
+	{
+		if (strcmp(entry.szExeFile, name) == 0)
+			pid = entry.th32ProcessID;
+	}
+
+	if (!CloseHandle(snapshot))
+		return MH_ERROR_GENERIC;
+
+	if (!pid)
+		return MH_ERROR_PROCESS_NOT_FOUND;
+
+	return mh_process_attach_by_pid(process, pid);
 }
 
 enum mh_error mh_process_detach(struct mh_process *process)
