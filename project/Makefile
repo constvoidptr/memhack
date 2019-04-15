@@ -22,7 +22,7 @@ OBJECTS = $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEPENDENCIES = $(OBJECTS:%.o=%.d)
 
 .PHONY: all
-all: $(BIN_DIR)/static/$(PROGRAM).a
+all: $(BIN_DIR)/static/$(PROGRAM).a $(BIN_DIR)/dynamic/$(PROGRAM).so
 
 .PHONY: clean
 clean:
@@ -36,6 +36,11 @@ Makefile: ;
 $(BIN_DIR)/static/$(PROGRAM).a: $(OBJECTS)
 	@mkdir -p $(BIN_DIR)/static
 	ar csr $@ $(OBJECTS)
+
+# Build the library dynamically
+$(BIN_DIR)/dynamic/$(PROGRAM).so: $(OBJECTS)
+	@mkdir -p $(BIN_DIR)/dynamic
+	$(strip $(CC) -shared -fPIC -o $@ $(OBJECTS))
 
 # Generate a dependency file .d for every source file that tracks includes.
 # This allows to see if a source file needs to be recompiled because a header
