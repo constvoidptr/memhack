@@ -1,6 +1,7 @@
 # Memhack
 
-Memhack is a **easy to use** memory hacking library with a multi-plattform design.
+Memhack is an **easy to use** and **cross-plattform** memory hacking library
+with **consistent** and **well documented** library calls.
 
 Simple example without error checking.
 ```C
@@ -9,7 +10,7 @@ int score = 0;
 struct mh_process *process = NULL;
 
 // Attach to the target process, sets the mh_process pointer
-mh_process_attach_by_name(&process, "example.exe");
+mh_process_attach_by_pid(&process, 28191);
 
 // Read out the current score, add 100 and write the new value back into process memory
 mh_memory_read(process, (void *) 0x0618C0DC, &score, sizeof (score));
@@ -22,29 +23,41 @@ mh_process_detach(process);
 
 ## Features
 
-* Easy to use, consistent library function calls
-* Designed with multi-plattform support in mind
-* Static and dynamic library available
-* Library is written in C and is therefor compatible with every language that
-  provides C bindings
-* Read from process memory
-* Write to process memory
+* Easy to use, consistent and well documented library calls
+* Cross-plattform with Windows and Linux officially supported. Easy to add
+  support for a new plattforms because the library was designed with
+  multi-plattform support in mind
+* Static and dynamic linkage available
+* Written in C and therefore, most likely, callable from your favourite
+  programming language
+* Read and write from/to another processes memory
 
 With a lot more to come...
 
 ## Usage
 
+Admin or super user privileges are required to run.
+
 Code examples will follow...
 
-## Installation
+## Compilation
 
 ### Windows
 
 Under Windows Visual Studio is required to compile the code.
 
-`git clone https://github.com/constvoidptr/memhack.git`
+1. `git clone https://github.com/constvoidptr/memhack.git`
+2. Open the Visual Studio Solution under `project/memhack.sln`
+3. Compile using already set up configurations
 
-Open the Visual Studio Solution under `project/memhack.sln`
+### Linux
+
+Building for Linux is done by gcc + make.
+
+1. `git clone https://github.com/constvoidptr/memhack.git`
+2. Change into the `project/` directory
+3. Excecute `make` to build the `all` target, or select another target of your
+   choosing
 
 ## License
 

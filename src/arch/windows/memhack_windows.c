@@ -86,7 +86,7 @@ enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *
 
 	SIZE_T num_bytes_read;
 
-	if (!ReadProcessMemory(process->handle, src, dst, size, &num_bytes_read) || size != num_bytes_read)
+	if (!ReadProcessMemory(process->handle, src, dst, size, &num_bytes_read) || num_bytes_read != size)
 		return MH_ERROR_GENERIC;
 
 	return MH_SUCCESS;
@@ -99,7 +99,7 @@ enum mh_error mh_memory_write(const struct mh_process *process, void *src, void 
 
 	SIZE_T num_bytes_written;
 
-	if (!WriteProcessMemory(process->handle, dst, src, size, &num_bytes_written) || size != num_bytes_written)
+	if (!WriteProcessMemory(process->handle, dst, src, size, &num_bytes_written) || num_bytes_written != size)
 		return MH_ERROR_GENERIC;
 
 	return MH_SUCCESS;

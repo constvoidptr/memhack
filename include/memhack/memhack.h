@@ -51,6 +51,13 @@ struct mh_process;
 DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, const int pid);
 
 /*
+ * Only avaiable under Windows, the Linux kernel does not provide an API get
+ * all processes by name. Would have to parse /proc. This will probably be
+ * added later.
+ */
+#if defined(_WIN32)
+
+/*
  * mh_process_attach_by_name - Attach to your target process given the process
  * name. Attaching to the process is required before using any other API call.
  *
@@ -60,6 +67,8 @@ DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, con
  * Returns:  Enum of type mh_error
  */
 DECLSPEC enum mh_error mh_process_attach_by_name(struct mh_process **process, const char *name);
+
+#endif
 
 /*
  * mh_process_detach - Detaches from your target process and frees memory. Every
