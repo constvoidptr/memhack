@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\error.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\memhack\linkage.h" />
     <ClInclude Include="..\include\memhack\memhack.h" />
     <ClInclude Include="..\include\memhack\error.h" />
   </ItemGroup>

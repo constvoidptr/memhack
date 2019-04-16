@@ -5,6 +5,8 @@
 #ifndef MH_ERROR_H
 #define MH_ERROR_H
 
+#include "linkage.h"
+
 /* 
  * The library return type. MH_SUCCESS and MH_ERROR_GENERIC are guaranteed to
  * be 0 and 1 the order of the others is not.
@@ -24,6 +26,6 @@ enum mh_error {
  *
  * Returns: A constant error message string
  */
-const char * mh_resolve_error(enum mh_error error);
+DECLSPEC const char * mh_resolve_error(enum mh_error error);
 
 #endif
