@@ -20,12 +20,12 @@ enum mh_error {
 };
 
 /*
- * mh_resolve_error - Resolves error type into a string.
+ * mh_error_resolve - Resolves error type into a string.
  *
  * @error: The type of error
  *
  * Returns: A constant error message string
  */
-DECLSPEC const char * mh_resolve_error(enum mh_error error);
+DECLSPEC const char * mh_error_resolve(enum mh_error error);
 
 #endif
