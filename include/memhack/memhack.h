@@ -8,6 +8,8 @@
 #ifndef MH_MEMHACK_H
 #define MH_MEMHACK_H
 
+#include <inttypes.h>
+
 #include "error.h"
 #include "linkage.h"
 
@@ -23,7 +25,7 @@ struct mh_process;
  *
  * Returns:  Enum of type mh_error
  */
-DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, const int pid);
+DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, int32_t pid);
 
 /*
  * Only avaiable under Windows, the Linux kernel does not provide an API get
@@ -68,7 +70,7 @@ DECLSPEC enum mh_error mh_process_detach(struct mh_process *process);
  *
  * Returns:  Enum of type mh_error
  */
-DECLSPEC enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, unsigned int size);
+DECLSPEC enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, uint32_t size);
 
 /*
  * mh_memory_read - Copies memory from your process into the targets memory,
@@ -82,6 +84,6 @@ DECLSPEC enum mh_error mh_memory_read(const struct mh_process *process, void *sr
  *
  * Returns: Enum of type mh_error
  */
-DECLSPEC enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, unsigned int size);
+DECLSPEC enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, uint32_t size);
 
 #endif

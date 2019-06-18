@@ -17,7 +17,7 @@ struct mh_process {
 	pid_t pid;
 };
 
-enum mh_error mh_process_attach_by_pid(struct mh_process **process, const int pid)
+enum mh_error mh_process_attach_by_pid(struct mh_process **process, int32_t pid)
 {
 	/*
 	 * Check if the process with the specified pid is running by issuing a kill
@@ -46,7 +46,7 @@ enum mh_error mh_process_detach(struct mh_process *process)
 	return MH_SUCCESS;
 }
 
-enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, unsigned int size)
+enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -67,7 +67,7 @@ enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *
 	return MH_SUCCESS;
 }
 
-enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, unsigned int size)
+enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
