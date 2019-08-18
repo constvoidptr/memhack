@@ -22,7 +22,13 @@ OBJECTS = $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEPENDENCIES = $(OBJECTS:%.o=%.d)
 
 .PHONY: all
-all: $(BIN_DIR)/static/$(PROGRAM).a $(BIN_DIR)/dynamic/$(PROGRAM).so
+all: static dynamic
+
+.PHONY: static
+static: $(BIN_DIR)/static/$(PROGRAM).a
+
+.PHONY: dynamic
+dynamic: $(BIN_DIR)/dynamic/$(PROGRAM).so
 
 .PHONY: clean
 clean:
