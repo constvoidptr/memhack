@@ -11,11 +11,9 @@
  * The library return type. MH_SUCCESS and MH_ERROR_GENERIC are guaranteed to
  * be at position 0 and 1 respectively. The order of the other variants is not specified.
  */
-typedef enum {
+typedef enum mh_error {
 	MH_SUCCESS = 0,
 	MH_ERROR_GENERIC = 1,
-	MH_ERROR_INVALID_PARAMETER,
-	MH_ERROR_MEMORY_ALLOCATION,
 	MH_ERROR_PROCESS_NOT_FOUND
 } mh_error_t;
 

@@ -1,7 +1,7 @@
 # Memhack
 
 Memhack is an **easy-to-use** and **cross-platform** memory hacking library
-with **consistent** and **well documented** library calls.
+that strives to be **consistent** and **well documented**.
 
 Simple example without error checking.
 ```C
@@ -47,8 +47,10 @@ Code examples will follow...
 Under Windows Visual Studio is required to compile the code.
 
 1. `git clone https://github.com/constvoidptr/memhack.git`
-2. Open the Visual Studio Solution under `project/memhack.sln`
-3. Compile using already set up configurations
+2. Open the project with the editor of your choice
+3. Compile to a static or dynamic library using CMake
+
+Alternatively, there are pre-built Windows binaries available.
 
 ### Linux
 
