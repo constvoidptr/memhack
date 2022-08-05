@@ -26,6 +26,7 @@ typedef enum {
  *
  * Returns: A string describing the error
  */
-DECLSPEC const char * mh_error_resolve(mh_error_t error);
+DECLSPEC const char *
+mh_error_resolve(mh_error_t error);
 
 #endif

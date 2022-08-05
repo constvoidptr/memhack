@@ -25,7 +25,8 @@ typedef struct mh_process mh_process_t;
  *
  * Returns:  Enum of type mh_error_t
  */
-DECLSPEC mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid);
+DECLSPEC mh_error_t
+mh_process_attach_by_pid(mh_process_t **process, int32_t pid);
 
 /*
  * Only available under Windows, the Linux kernel does not provide an API get
@@ -43,7 +44,8 @@ DECLSPEC mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid
  *
  * Returns:  Enum of type mh_error_t
  */
-DECLSPEC mh_error_t mh_process_attach_by_name(mh_process_t **process, const char *name);
+DECLSPEC mh_error_t
+mh_process_attach_by_name(mh_process_t **process, const char *name);
 
 #endif
 
@@ -56,7 +58,8 @@ DECLSPEC mh_error_t mh_process_attach_by_name(mh_process_t **process, const char
  *
  * Returns:  Enum of type mh_error_t
  */
-DECLSPEC mh_error_t mh_process_detach(mh_process_t *process);
+DECLSPEC mh_error_t
+mh_process_detach(mh_process_t *process);
 
 /*
  * mh_memory_read - Copies memory out of the virtual address space of the target
@@ -70,7 +73,8 @@ DECLSPEC mh_error_t mh_process_detach(mh_process_t *process);
  *
  * Returns:  Enum of type mh_error_t
  */
-DECLSPEC mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size);
+DECLSPEC mh_error_t
+mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size);
 
 /*
  * mh_memory_read - Copies memory from your process into the targets' memory,
@@ -84,6 +88,7 @@ DECLSPEC mh_error_t mh_memory_read(const mh_process_t *process, void *src, void 
  *
  * Returns: Enum of type mh_error_t
  */
-DECLSPEC mh_error_t mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size);
+DECLSPEC mh_error_t
+mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size);
 
 #endif

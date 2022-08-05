@@ -14,12 +14,13 @@ struct mh_process {
 	HANDLE handle;
 };
 
-mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
+mh_error_t
+mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
 {
-	mh_process_t *tmp_process = malloc(sizeof (*tmp_process));
+	mh_process_t *tmp_process = malloc(sizeof(*tmp_process));
 	if (!tmp_process)
 		return MH_ERROR_MEMORY_ALLOCATION;
-	memset(tmp_process, 0, sizeof (*tmp_process));
+	memset(tmp_process, 0, sizeof(*tmp_process));
 
 	tmp_process->pid = pid;
 	tmp_process->handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
@@ -34,7 +35,8 @@ mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_process_attach_by_name(mh_process_t **process, const char *name)
+mh_error_t
+mh_process_attach_by_name(mh_process_t **process, const char *name)
 {
 	if (!name)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -67,7 +69,8 @@ mh_error_t mh_process_attach_by_name(mh_process_t **process, const char *name)
 	return mh_process_attach_by_pid(process, pid);
 }
 
-mh_error_t mh_process_detach(mh_process_t *process)
+mh_error_t
+mh_process_detach(mh_process_t *process)
 {
 	if (!process)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -79,27 +82,37 @@ mh_error_t mh_process_detach(mh_process_t *process)
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size)
+mh_error_t
+mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
 
 	SIZE_T num_bytes_read;
 
-	if (!ReadProcessMemory(process->handle, src, dst, size, &num_bytes_read) || num_bytes_read != size)
+	if (!ReadProcessMemory(process->handle,
+						   src,
+						   dst,
+						   size,
+						   &num_bytes_read) || num_bytes_read != size)
 		return MH_ERROR_GENERIC;
 
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size)
+mh_error_t
+mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
 
 	SIZE_T num_bytes_written;
 
-	if (!WriteProcessMemory(process->handle, dst, src, size, &num_bytes_written) || num_bytes_written != size)
+	if (!WriteProcessMemory(process->handle,
+							dst,
+							src,
+							size,
+							&num_bytes_written) || num_bytes_written != size)
 		return MH_ERROR_GENERIC;
 
 	return MH_SUCCESS;

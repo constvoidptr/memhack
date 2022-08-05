@@ -11,13 +11,15 @@
 
 // Defined so that sys/uio.h includes bits/uio-ext.h
 #define __USE_GNU
+
 #include <sys/uio.h>
 
 struct mh_process {
 	pid_t pid;
 };
 
-mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
+mh_error_t
+mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
 {
 	/*
 	 * Check if the process with the specified pid is running by issuing a kill
@@ -25,19 +27,20 @@ mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
 	 */
 	if (kill(pid, 0))
 		return MH_ERROR_PROCESS_NOT_FOUND;
-	
-	struct mh_process *tmp_process = malloc(sizeof (*tmp_process));
+
+	struct mh_process *tmp_process = malloc(sizeof(*tmp_process));
 	if (!tmp_process)
 		return MH_ERROR_MEMORY_ALLOCATION;
-	memset(tmp_process, 0, sizeof (*tmp_process));
+	memset(tmp_process, 0, sizeof(*tmp_process));
 
 	tmp_process->pid = pid;
-	
+
 	*process = tmp_process;
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_process_detach(mh_process_t *process)
+mh_error_t
+mh_process_detach(mh_process_t *process)
 {
 	if (!process)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -46,7 +49,8 @@ mh_error_t mh_process_detach(mh_process_t *process)
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size)
+mh_error_t
+mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -54,9 +58,9 @@ mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uin
 	struct iovec iovec[2];
 
 	iovec[0].iov_base = dst;
-	iovec[0].iov_len  = size;
+	iovec[0].iov_len = size;
 	iovec[1].iov_base = src;
-	iovec[1].iov_len  = size;
+	iovec[1].iov_len = size;
 
 	ssize_t num_bytes_read;
 	num_bytes_read = process_vm_readv(process->pid, &iovec[0], 1, &iovec[1], 1, 0);
@@ -67,7 +71,8 @@ mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uin
 	return MH_SUCCESS;
 }
 
-mh_error_t mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size)
+mh_error_t
+mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -75,9 +80,9 @@ mh_error_t mh_memory_write(const mh_process_t *process, void *src, void *dst, ui
 	struct iovec iovec[2];
 
 	iovec[0].iov_base = src;
-	iovec[0].iov_len  = size;
+	iovec[0].iov_len = size;
 	iovec[1].iov_base = dst;
-	iovec[1].iov_len  = size;
+	iovec[1].iov_len = size;
 
 	ssize_t num_bytes_written;
 	num_bytes_written = process_vm_writev(process->pid, &iovec[0], 1, &iovec[1], 1, 0);
