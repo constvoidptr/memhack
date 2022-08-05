@@ -19,6 +19,6 @@ const char * mh_error_resolve(enum mh_error error)
 	case MH_ERROR_PROCESS_NOT_FOUND:
 		return "Process not found";
 	default:
-		return "Unkown error";
+		return "Unknown error";
 	}
 }

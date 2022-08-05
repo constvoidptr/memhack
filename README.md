@@ -1,6 +1,6 @@
 # Memhack
 
-Memhack is an **easy to use** and **cross-plattform** memory hacking library
+Memhack is an **easy-to-use** and **cross-platform** memory hacking library
 with **consistent** and **well documented** library calls.
 
 Simple example without error checking.
@@ -24,9 +24,9 @@ mh_process_detach(process);
 ## Features
 
 * Easy to use, consistent and well documented library calls
-* Cross-plattform with Windows and Linux officially supported. Easy to add
-  support for a new plattforms because the library was designed with
-  multi-plattform support in mind
+* Cross-platform with Windows and Linux officially supported. Easy to add
+  support for a new platforms because the library was designed with
+  multi-platform support in mind
 * Static and dynamic linkage available
 * Written in C and therefore, most likely, callable from your favourite
   programming language
@@ -36,7 +36,7 @@ With a lot more to come...
 
 ## Usage
 
-Admin or super user privileges are required to run.
+Admin or Superuser privileges are required to run.
 
 Code examples will follow...
 
@@ -56,7 +56,7 @@ Building for Linux is done by gcc + make.
 
 1. `git clone https://github.com/constvoidptr/memhack.git`
 2. Change into the `project/` directory
-3. Excecute `make` to build the `all` target, or select another target of your
+3. Execute `make` to build the `all` target, or select another target of your
    choosing
 
 ## License

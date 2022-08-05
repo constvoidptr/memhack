@@ -1,5 +1,5 @@
 /*
- * This file defines macros that handle external linkage on all plattforms.
+ * This file defines macros that handle external linkage on all platforms.
  */
 
 #ifndef MH_LINKAGE_H

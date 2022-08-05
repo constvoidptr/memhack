@@ -2,7 +2,7 @@
  * This file defines all library function calls. It is written in a
  * system-agnostic way, so there are no system specific types except inside
  * macros guards. Furthermore, all functions return an enum mh_error to provide
- * a consistant API.
+ * a consistent API.
  */
 
 #ifndef MH_MEMHACK_H
@@ -28,7 +28,7 @@ struct mh_process;
 DECLSPEC enum mh_error mh_process_attach_by_pid(struct mh_process **process, int32_t pid);
 
 /*
- * Only avaiable under Windows, the Linux kernel does not provide an API get
+ * Only available under Windows, the Linux kernel does not provide an API get
  * all processes by name. Would have to parse /proc. This will probably be
  * added later.
  */
@@ -63,7 +63,7 @@ DECLSPEC enum mh_error mh_process_detach(struct mh_process *process);
  * process into your process.
  *
  * @process: Pointer to the mh_process struct
- * @src:     Source location from where the memory is beeing copied
+ * @src:     Source location from where the memory is being copied
  * @dst:     Destination of the buffer where the memory is written to
  * @size:    Amount of bytes you want to copy. This SHOULD NOT exceed the size
  *           your buffer - would result in an overflow.
@@ -73,11 +73,11 @@ DECLSPEC enum mh_error mh_process_detach(struct mh_process *process);
 DECLSPEC enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, uint32_t size);
 
 /*
- * mh_memory_read - Copies memory from your process into the targets memory,
- * considering the virtual addess space.
+ * mh_memory_read - Copies memory from your process into the targets' memory,
+ * considering the virtual address space.
  *
  * @process: Pointer to the mh_process struct
- * @src:     Source location from where the memory is beeing copied
+ * @src:     Source location from where the memory is being copied
  * @dst:     Destination of where the memory should be copied to
  * @size:    Amount of bytes you want to copy. This SHOULD NOT exceed the size
  *           of the targets process buffer - would result in an overflow.
