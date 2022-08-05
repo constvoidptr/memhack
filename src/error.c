@@ -4,7 +4,7 @@
 
 #include <memhack/error.h>
 
-const char * mh_error_resolve(enum mh_error error)
+const char * mh_error_resolve(mh_error_t error)
 {
 	switch (error)
 	{

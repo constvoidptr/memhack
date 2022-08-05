@@ -9,23 +9,23 @@
 
 /* 
  * The library return type. MH_SUCCESS and MH_ERROR_GENERIC are guaranteed to
- * be 0 and 1 the order of the others is not.
+ * be at position 0 and 1 respectively. The order of the other variants is not specified.
  */
-enum mh_error {
-	MH_SUCCESS,
-	MH_ERROR_GENERIC,
+typedef enum {
+	MH_SUCCESS = 0,
+	MH_ERROR_GENERIC = 1,
 	MH_ERROR_INVALID_PARAMETER,
 	MH_ERROR_MEMORY_ALLOCATION,
 	MH_ERROR_PROCESS_NOT_FOUND
-};
+} mh_error_t;
 
 /*
- * mh_error_resolve - Resolves error type into a string.
+ * mh_error_resolve - Resolves the error type into a string.
  *
  * @error: The type of error
  *
- * Returns: A constant error message string
+ * Returns: A string describing the error
  */
-DECLSPEC const char * mh_error_resolve(enum mh_error error);
+DECLSPEC const char * mh_error_resolve(mh_error_t error);
 
 #endif

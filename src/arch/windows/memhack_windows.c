@@ -14,9 +14,9 @@ struct mh_process {
 	HANDLE handle;
 };
 
-enum mh_error mh_process_attach_by_pid(struct mh_process **process, int32_t pid)
+mh_error_t mh_process_attach_by_pid(mh_process_t **process, int32_t pid)
 {
-	struct mh_process *tmp_process = malloc(sizeof (*tmp_process));
+	mh_process_t *tmp_process = malloc(sizeof (*tmp_process));
 	if (!tmp_process)
 		return MH_ERROR_MEMORY_ALLOCATION;
 	memset(tmp_process, 0, sizeof (*tmp_process));
@@ -34,7 +34,7 @@ enum mh_error mh_process_attach_by_pid(struct mh_process **process, int32_t pid)
 	return MH_SUCCESS;
 }
 
-enum mh_error mh_process_attach_by_name(struct mh_process **process, const char *name)
+mh_error_t mh_process_attach_by_name(mh_process_t **process, const char *name)
 {
 	if (!name)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -67,7 +67,7 @@ enum mh_error mh_process_attach_by_name(struct mh_process **process, const char 
 	return mh_process_attach_by_pid(process, pid);
 }
 
-enum mh_error mh_process_detach(struct mh_process *process)
+mh_error_t mh_process_detach(mh_process_t *process)
 {
 	if (!process)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -79,7 +79,7 @@ enum mh_error mh_process_detach(struct mh_process *process)
 	return MH_SUCCESS;
 }
 
-enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *dst, uint32_t size)
+mh_error_t mh_memory_read(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;
@@ -92,7 +92,7 @@ enum mh_error mh_memory_read(const struct mh_process *process, void *src, void *
 	return MH_SUCCESS;
 }
 
-enum mh_error mh_memory_write(const struct mh_process *process, void *src, void *dst, uint32_t size)
+mh_error_t mh_memory_write(const mh_process_t *process, void *src, void *dst, uint32_t size)
 {
 	if (!process || !src || !dst || !size)
 		return MH_ERROR_INVALID_PARAMETER;

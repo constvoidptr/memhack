@@ -7,7 +7,7 @@ Simple example without error checking.
 ```C
 // Variable that will hold the score, opaque pointer to the mh_process struct
 int score = 0;
-struct mh_process *process = NULL;
+mh_process_t *process = NULL;
 
 // Attach to the target process, sets the mh_process pointer
 mh_process_attach_by_pid(&process, 28191);
